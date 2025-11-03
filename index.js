@@ -4,14 +4,14 @@ function createLoginTracker(userInfo) {
   password = userInfo.password;
 
     let attemptCount = 0; 
-
+// track login attempts
     const loginAttempt = (passwordAttempt) => {
         attemptCount++; 
-
+// lock account after 3 failed attempts
         if (attemptCount > 3) {
             return "Account locked due to too many failed login attempts";
         }
-
+// check password
         if (passwordAttempt === userInfo.password) {
             return "Login successful";
         } else {
@@ -20,15 +20,15 @@ function createLoginTracker(userInfo) {
     };
     return loginAttempt; 
 }
-// test to make sure it works
+// tests to make sure it works
 const user = { username: "user1", password: "password123" };
 const login = createLoginTracker(user);
 
-console.log(login("wrong"));      // Attempt 1: Login failed
-console.log(login("wrong2"));     // Attempt 2: Login failed
-console.log(login("password123"));    // Login successful
-console.log(login("anotherWrong"));   // Attempt 4 → Account locked
-console.log(login("password123"));    // Still locked
+console.log(login("wrong"));
+console.log(login("wrong2"));
+console.log(login("password123"));
+console.log(login("anotherWrong")); 
+console.log(login("password123"));    
 
 module.exports = {
   ...(typeof createLoginTracker !== 'undefined' && { createLoginTracker })
